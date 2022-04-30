@@ -1,4 +1,4 @@
-# minority
+# About
 minorityのWordpressプロジェクト
 
 # 説明
