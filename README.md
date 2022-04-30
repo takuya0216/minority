@@ -1,5 +1,5 @@
 # minority
-Wordpress Project for minority
+minorityのWordpressプロジェクト
 
 # 説明
 - mts-simple-booking-c-1.4.1:予約システムプラグイン。再アップの場合はこれをzip圧縮。
