@@ -1,0 +1,25 @@
+/*下層ページ共通*/
+#content {
+  padding-top: 0;
+  margin-top: -25px !important;
+}
+
+.-series .l-header__logo {
+  padding-top: 0;
+  margin-top: auto;
+}
+
+@media (min-width: 960px) {
+  .c-headLogo {
+    height: 148px;
+  }
+}
+
+/*コンテンツ幅以下*/
+@media (max-width: 1280px) {
+  #content {
+    margin-top: 0px !important;
+  }
+}
+
+/*下層ページ共通END*/

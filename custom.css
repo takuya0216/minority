@@ -1,0 +1,665 @@
+/*基本*/
+a:hover {
+  opacity: .8;
+}
+
+#body_wrap {
+  overflow: hidden;
+}
+
+.wp-block-column {
+  margin-left: 0 !important;
+}
+
+.l-mainContent__inner>.post_content {
+  padding: 0;
+}
+
+.post_content {
+  margin-top: 0 !important;
+}
+
+/*ヘッダー*/
+.-series .l-header__logo {
+  padding-top: 110px;
+}
+
+.l-header {
+  background: transparent;
+}
+
+/*ナビゲーション*/
+nav#gnav {
+  display: none;
+}
+
+.c-widget__title.-spmenu {
+  display: none;
+}
+
+.p-spMenu a {
+  opacity: 1;
+  border: none;
+}
+
+.p-spMenu__body {
+  padding: 4vw 4vw 10vw;
+}
+
+li.menu-item-886 {
+  margin-top: 60px;
+}
+
+.p-spMenu__nav ul li a:before {
+  content: "";
+}
+
+.p-spMenu__nav ul.c-spnav.c-listMenu {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  flex-flow: column;
+  height: 88vh;
+}
+
+/*展開メニュー幅*/
+.-right .p-spMenu__inner {
+  -webkit-transform: translateX(calc(88vw + 221px));
+  transform: translateX(calc(88vw + 221px));
+}
+
+[data-spmenu=opened] .p-spMenu__inner {
+  -webkit-transform: translateX(0);
+  transform: translateX(0);
+}
+
+/*ハンバーガーボタン*/
+.l-header__menuBtn {
+  display: block !important;
+  width: auto;
+  height: auto;
+  transition: 0.4s ease-in-out;
+  transform: translatex(140px);
+}
+
+.c-iconBtn__icon {
+  display: block;
+}
+
+.c-iconBtn {
+  align-content: flex-start;
+}
+
+.icon-menu-thin:before {
+  content: "";
+  background-image: url(https://minority2017.com/wp-content/uploads/2022/03/6fba2531831f3bc4b2a93b7b5dfb424e.svg);
+  background-repeat: no-repeat;
+  background-size: contain;
+  height: 221px;
+  width: 83px;
+}
+
+.icon-close-thin:before {
+  content: "";
+  position: absolute;
+  background-image: url(https://minority2017.com/wp-content/uploads/2022/03/6fba2531831f3bc4b2a93b7b5dfb424e.svg);
+  background-repeat: no-repeat;
+  background-size: contain;
+  height: 221px;
+  width: 83px;
+  top: 0;
+  right: 87.9vw;
+  cursor: pointer;
+}
+
+
+/*固定ページ共通*/
+h1.c-pageTitle {
+  display: none;
+}
+
+/*TOP*/
+.instagram-icon.wp-block-social-link {
+  margin-right: 0 !important;
+}
+
+.wp-block-column.info-col-bg-gray {
+  position: relative;
+}
+
+.wp-block-column.info-col-bg-gray-left>* {
+  margin-left: -35px;
+}
+
+.wp-block-column.info-col-bg-gray-right>* {
+  margin-left: 20px;
+}
+
+.wp-block-column.info-col-bg-gray.info-col-bg-gray-right {
+  margin-top: 50px;
+}
+
+.wp-block-column.info-col-bg-gray.info-col-bg-gray-right div:first-child {
+  margin-top: 70px !important;
+}
+
+.wp-block-column.info-col-bg-gray.info-col-bg-gray-left figure:last-child {
+  margin-left: 0px !important;
+}
+
+.wp-block-column.info-col-bg-gray.info-col-bg-gray-right div:last-child {
+  margin-right: -100px !important;
+}
+
+.wp-block-column.info-col-bg-gray::before {
+  content: "";
+  background: #d8d8d2;
+  display: block;
+  width: 760px;
+  height: 420px;
+  position: absolute;
+  z-index: -1;
+}
+
+.wp-block-column.info-col-bg-gray-left::before {
+  left: -145px;
+  top: -80px;
+}
+
+.wp-block-column.info-col-bg-gray-right::before {
+  left: -215px;
+}
+
+.wp-block-image.top-cake-fruit-pc {
+  transform: translateX(105px);
+}
+
+.top-eatin-fruit-sp,
+.top-cake-fruit-sp {
+  display: none !important;
+}
+
+.info-col-eatin {
+  margin-top: 7.5em;
+}
+
+.wp-block-column.eatin-col-right {
+  margin-top: 15px;
+}
+
+.top-section-text {
+  width: max-content;
+}
+
+/*CAKEページ*/
+h2.section-title-minion.cakemenu-title:after {
+  content: "※写真は一例です。";
+  font-family: auto;
+  font-weight: normal;
+  font-size: 0.875rem;
+  position: absolute;
+  bottom: 0;
+  margin-left: 3vw;
+  letter-spacing: .1em;
+}
+
+.cake-gallery.has-nested-images figure.wp-block-image:not(#individual-image) {
+  margin: 1px var(--gallery-block--gutter-size, 16px) var(--gallery-block--gutter-size, 60px) 0;
+  width: calc(50% - var(--gallery-block--gutter-size, 60px)/2);
+}
+
+.cake-gallery.has-nested-images figure.wp-block-image figcaption {
+  background: none;
+  bottom: -35px;
+  color: #000;
+  font-size: 14px;
+  left: 0;
+  margin-bottom: 0;
+  max-height: 60%;
+  overflow: auto;
+  padding: 0 8px 8px 0;
+  position: absolute;
+  text-align: left;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.cake-size-title {
+  margin-bottom: 1em !important;
+  padding-left: 0 !important;
+}
+
+/*コンタクフォーム*/
+label.cf7-section-label {
+  font-size: 1.25rem;
+  font-weight: bold;
+  display: inline-block;
+  width: 100%;
+}
+
+label.cf7-section-label>*>* {
+  width: 100%;
+}
+
+input.wpcf7-form-control.wpcf7-text,
+#cf7-pickup-date {
+  margin-bottom: 1.5em;
+}
+
+.wpcf7-list-item {
+  margin: 0 3.125em .3em 0;
+}
+
+span.wpcf7-form-control.wpcf7-checkbox {
+  display: flex;
+  flex-flow: wrap;
+  margin: 0 0 2.5em 0;
+}
+
+span.wpcf7-form-control-wrap.checkbox-126>span {
+  margin-bottom: 0;
+}
+
+input.wpcf7-form-control.has-spinner.wpcf7-submit {
+  background: var(--color_main);
+  color: #fff;
+  font-weight: bold;
+  width: 415px;
+  border-radius: 8px;
+  margin: 40px auto 0;
+  /* text-align: center; */
+  display: block;
+}
+
+span.cf7-note {
+  font-size: .875rem;
+  margin-left: 1em;
+}
+
+/*下層ページタイトル共通*/
+figure.underpage-hero-image {
+  z-index: 1 !important;
+  position: relative;
+}
+
+.underpage-wp-title {
+  padding-top: 11.25em !important;
+  padding-bottom: 0 !important;
+  margin-top: -120px !important;
+}
+
+.underpage-wp-title .swell-block-fullWide__inner {
+  transform: translateY(20px);
+}
+
+.wp-block-column.underpage-title-inner-col2 {
+  transform: translateY(25px);
+}
+
+/*フッター*/
+.l-footer__foot,
+.l-footer__widgetArea {
+  padding-top: 3.5em;
+}
+
+h3.footer-access-title {
+  font-size: 1.875rem;
+}
+
+.l-footer .copyright {
+  font-size: 20px;
+  text-align: right;
+}
+
+.w-footer__box {
+  padding: 0;
+}
+
+/*コンテンツ幅以下*/
+@media (max-width: 1280px) {
+  .l-header__menuBtn {
+    transform: translatex(0px);
+  }
+}
+
+@media (min-width: 960px) {
+
+  /*メニュー展開*/
+  .p-spMenu {
+    display: block;
+  }
+}
+
+@media (max-width: 959px) {
+  .l-header__inner {
+    align-items: start;
+  }
+
+  .c-headLogo {
+    height: 333px;
+  }
+}
+
+/* 中デバイス  (タブレット以下)*/
+@media (max-width: 768px) {
+
+  /*ヘッダー*/
+  .l-header,
+  .l-header__inner {
+    height: 40vh;
+  }
+
+  .-series .l-header__logo {
+    padding-top: 20px;
+  }
+
+  .section-title-minion {
+    font-size: 2.125em !important;
+    margin-top: 0.5em !important;
+  }
+
+  .section-title-info {
+    margin-bottom: 0 !important;
+  }
+
+  /*TOPページ*/
+  .top #content {
+    padding-top: 0;
+  }
+
+  .wp-block-column.info-col-bg-gray-left>* {
+    margin-left: 0px;
+  }
+
+  .wp-block-column.info-col-bg-gray-right>* {
+    margin-left: 0px;
+  }
+
+  .info-col-eatin {
+    flex-flow: column-reverse;
+    align-items: flex-start;
+    margin-top: 0.5em;
+    gap: 35px;
+  }
+
+  .info-col-cake {
+    flex-flow: column;
+    align-items: flex-start;
+    margin-top: 0.5em;
+    gap: 35px;
+    margin-top: 7em !important;
+  }
+
+  .wp-block-column.eatin-col-right div figure,
+  .cake-col-left div figure {
+    margin: 0 !important;
+  }
+
+  .wp-block-column.info-col-bg-gray::before {
+    width: 110vw;
+    height: 45vh;
+  }
+
+  .wp-block-column.info-col-bg-gray-left::before,
+  .wp-block-column.info-col-bg-gray-right::before {
+    left: -10vw;
+    top: -20vw;
+  }
+
+  .info-btn a {
+    min-width: 70%;
+    font-size: 1.1rem !important;
+  }
+
+  .wp-block-column.info-col-bg-gray.info-col-bg-gray-right div:first-child,
+  .wp-block-column.info-col-bg-gray.info-col-bg-gray-right {
+    margin-top: 0px !important;
+    margin-left: 0px !important;
+  }
+
+  .info-col-bg-gray-left div figure,
+  .info-col-bg-gray-right div figure {
+    width: 55%;
+  }
+
+  .top-eatin-fruit-pc,
+  .top-cake-fruit-pc {
+    display: none !important;
+  }
+
+  .top-eatin-fruit-sp,
+  .top-cake-fruit-sp {
+    display: block !important;
+    position: absolute;
+    top: 0;
+    left: 47vw;
+    z-index: -1;
+  }
+
+  .wp-block-column.eatin-col-right,
+  .wp-block-column.cake-col-left {
+    margin-right: auto !important;
+    margin-left: auto !important;
+  }
+
+  .top-eatin-fruit-sp img {
+    width: 170px !important;
+  }
+
+  /*Cakeページ*/
+  h2.section-title-minion.cakemenu-title:after {
+    font-size: 0.625rem;
+    bottom: -2em;
+    line-height: 0.9em;
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    margin-left: 0;
+  }
+
+  .cake-price-inner-col {
+    justify-content: space-between;
+  }
+
+  .wpcf7-list-item {
+    margin: 0 1em 0 0;
+  }
+}
+
+/*Swellのクエリ*/
+@media (max-width: 600px) {
+
+  .tell-btn a span {
+    font-size: 1rem !important;
+  }
+
+  /*ヘッダー*/
+  .l-header,
+  .l-header__inner {
+    height: 35vh;
+  }
+
+  .-series .l-header__logo {
+    padding-top: 0px;
+  }
+
+  .-img .c-headLogo__link {
+    padding: 50px 10px;
+  }
+
+  .info-btn a {
+    min-width: 55%;
+    padding: 20px;
+  }
+
+  /*TOPページ*/
+  .top-eatin-fruit-sp,
+  .top-cake-fruit-sp {
+    width: 60vw !important;
+    padding-right: var(--swl-pad_container, 0);
+  }
+
+  .top-eatin-fruit-sp img {
+    width: 33vw !important;
+  }
+
+  .info-col-cake {
+    margin-top: 5em !important;
+    margin-bottom: 6em !important;
+  }
+
+  .top-eatin-fruit-sp {
+    top: 15vw;
+  }
+
+  .top-cake-fruit-sp {
+    top: 28vw;
+  }
+
+  .top-cake-fruit-sp img {
+    width: 50vw !important;
+  }
+
+  .wp-block-column.info-col-bg-gray::before {
+    height: 105vw;
+  }
+
+  /*展開メニュー*/
+  .p-spMenu__inner {
+    width: 78vw;
+  }
+
+  .icon-close-thin:before {
+    height: 33vh;
+    width: 22vw;
+    right: 78vw;
+  }
+
+  .menu-item-882 a img {
+    width: 130px;
+  }
+
+  .menu-item-866 a img {
+    width: 192px;
+  }
+
+  .menu-item-865 a img {
+    width: 158px;
+  }
+
+  .menu-item-886 a img {
+    width: 28px;
+  }
+
+  /*EAT-INページ*/
+  .underpage-wp-title {
+    padding-top: 22vw !important;
+    margin-top: -20vw !important;
+    padding-bottom: 12vw !important;
+  }
+
+  .wp-block-columns.eatin-title-inner.underpage-title-inner.sp_column2 {
+    justify-content: space-between;
+  }
+
+  .wp-block-column.eatin-title-inner-col1.underpage-title-inner-col1 {
+    flex-basis: 60% !important;
+  }
+
+  .wp-block-column.eatin-title-inner-col2.underpage-title-inner-col2 {
+    position: absolute;
+    top: 25vw;
+    right: var(--swl-pad_container, 0);
+    z-index: -1;
+    width: 40vw;
+  }
+
+  .wp-block-image.eatin-pagetitle {
+    width: 64vw;
+  }
+
+  /*CAKEページ*/
+  .cake-pagetitle,
+  p.cake-page-subtitle {
+    width: 90vw;
+  }
+
+  .wp-block-column.underpage-title-inner-col2.cake-pagetitle-col2 {
+    top: 32vh;
+  }
+
+  p.cakepage-subtitle-under {
+    width: 70vw;
+    font-size: 10px !important;
+  }
+
+  /*コンタクトフォーム*/
+  input.wpcf7-form-control.has-spinner.wpcf7-submit {
+    width: 70%;
+  }
+
+  span.cf7-note {
+    display: inline-block;
+    margin-left: 0;
+  }
+
+  label.cf7-section-label.cf7-section-platemessage span.cf7-note {
+    margin-left: 1em;
+  }
+
+  /*フッター*/
+  .wp-block-image.footer-map figure {
+    width: 100%;
+  }
+}
+
+@media (max-width: 959px) {
+
+  /*EAT-INページ*/
+  .wp-block-column.underpage-title-inner-col2 {
+    transform: translateY(0px);
+  }
+}
+
+@media (min-width:768px) and (max-width:959px) {
+  .sp_ {
+    display: none;
+  }
+
+}
+
+@media (min-width: 600px) and (max-width: 781px) {
+  .wp-block-columns:not(.is-not-stacked-on-mobile)>.wp-block-column.underpage-title-inner-col1:not(:only-child) {
+    flex-basis: 60% !important;
+  }
+
+  .wp-block-columns:not(.is-not-stacked-on-mobile)>.wp-block-column.underpage-title-inner-col2:not(:only-child) {
+    flex-basis: 40% !important;
+  }
+}
+
+/*PCのみ*/
+@media (min-width:768px) {
+  .cake-order-attention {
+    width: 80%;
+    margin: 0 auto;
+  }
+
+  .cake-price-col {
+    width: 80%;
+    margin: 0 auto;
+  }
+
+  .cake-price-inner-col {
+    gap: 40px;
+  }
+
+  .cake-price-col>.wp-block-column {
+    padding: 35px 50px 20px;
+  }
+
+  div#wpcf7-f9-p38-o2 {
+    width: 70%;
+    margin: 0 auto;
+  }
+}

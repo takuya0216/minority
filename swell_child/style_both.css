@@ -1,0 +1,80 @@
+/**
+ * フロントとエディタの両方に適応するスタイル
+ */
+
+@charset "UTF-8";
+
+body * {
+  font-feature-settings: "palt";
+}
+
+/*フォント*/
+.section-title-minion {
+  font-family: minion-pro, serif;
+  font-size: 3.125em !important;
+  margin-top: 1.4em !important;
+}
+
+.a1-mintyo {
+  font-family: "A1 Mincho", serif;
+}
+
+.cake-order-attention .cap_box_ttl {
+  font-family: "A1 Mincho", serif;
+}
+
+/*ボタン*/
+.is-style-btn_normal a {
+  border-radius: 10px;
+}
+
+.info-btn a {
+  min-width: 100%;
+  padding: 25px;
+  font-size: 1.5rem !important;
+  letter-spacing: 0.1em;
+}
+
+.info-btn-cake {
+  width: max-content;
+  letter-spacing: 0;
+}
+
+/*改行禁止*/
+.nowrap {
+  white-space: nowrap !important;
+}
+
+/*リストスタイルnone*/
+ul.list-style-none {
+  list-style: none !important;
+  padding-left: 0 !important;
+}
+
+/*ヘッダーアレンジ 縦書き*/
+.is-style-vertical-text {
+  -ms-writing-mode: tb-rl;
+  writing-mode: vertical-rl;
+}
+
+/* 中デバイス  (タブレット)*/
+@media (max-width: 768px) {}
+
+/* 小さなデバイス  (スマホ)*/
+@media (max-width: 480px) {}
+
+/*Swellのメディアクエリ*/
+@media (min-width: 782px) {}
+
+@media (min-width: 600px) and (max-width: 781px) {}
+
+/* 600pxより小さいと--swl-fz--root:3.6vwで、ルートの文字サイズがレスポンシブになってる。
+ * emやrem指定のフォントが画面サイズによってスケールしちゃう。
+ * レスポンシブが嫌ならルートのフォントサイズを固定して、画面サイズごとに指定する。*/
+@media (max-width: 600px) {
+  /*
+	html{
+		font-size:16px;
+	}
+  */
+}
