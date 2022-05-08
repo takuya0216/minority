@@ -1,0 +1,11 @@
+:root {
+  --swl-headerH: 0px !important;
+}
+
+#header {
+  position: absolute;
+}
+
+.l-header__logo {
+  display: none !important;
+}

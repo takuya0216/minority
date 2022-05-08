@@ -19,6 +19,61 @@ a:hover {
   margin-top: 0 !important;
 }
 
+/*アニメーション*/
+.anime-float {
+  animation: float-box 3.5s ease-in-out infinite;
+  transform-origin: 50% 50%;
+}
+
+@keyframes float-box {
+  0% {
+    transform: translateY(0)
+  }
+
+  50% {
+    transform: translateY(-20px)
+  }
+
+  100% {
+    transform: translateY(0)
+  }
+}
+
+/*高さ・位置・透過が変化して線が上から下に動く*/
+@keyframes pathmove {
+  0% {
+    top: 0;
+    opacity: 0;
+  }
+
+  40% {
+    opacity: 1;
+    transform: scale(1, .9)
+  }
+
+  100% {
+    top: 50px;
+    opacity: 0;
+    transform: scale(1, 0)
+  }
+}
+
+/*下から浮き上がって表示*/
+.fade-in-up {
+  opacity: 0;
+  transform: translate(0, 40px);
+  transition: all 500ms ease-in-out;
+}
+
+.fade-in-up-delay {
+  transition-delay: 300ms;
+}
+
+.fade-in-up.effect-scroll {
+  opacity: 1;
+  transform: translate(0, 0);
+}
+
 /*ヘッダー*/
 .-series .l-header__logo {
   padding-top: 110px;
@@ -79,7 +134,8 @@ li.menu-item-886 {
   width: auto;
   height: auto;
   transition: 0.4s ease-in-out;
-  transform: translatex(140px);
+  position: fixed;
+  right: 0;
 }
 
 .c-iconBtn__icon {
@@ -92,26 +148,29 @@ li.menu-item-886 {
 
 .icon-menu-thin:before {
   content: "";
-  background-image: url(https://minority2017.com/wp-content/uploads/2022/03/6fba2531831f3bc4b2a93b7b5dfb424e.svg);
+  background-image: url(https://minority2017.com/wp-content/uploads/2022/05/menu-icon.svg);
   background-repeat: no-repeat;
   background-size: contain;
-  height: 221px;
-  width: 83px;
+  height: 45vw;
+  width: 10vw;
+  max-width: 56px;
+  aspect-ratio: 2/9;
 }
 
 .icon-close-thin:before {
   content: "";
   position: absolute;
-  background-image: url(https://minority2017.com/wp-content/uploads/2022/03/6fba2531831f3bc4b2a93b7b5dfb424e.svg);
+  background-image: url(https://minority2017.com/wp-content/uploads/2022/05/menu-icon.svg);
   background-repeat: no-repeat;
   background-size: contain;
-  height: 221px;
-  width: 83px;
+  height: 45vw;
+  width: 10vw;
+  aspect-ratio: 2/9;
   top: 0;
   right: 87.9vw;
+  max-width: 76px;
   cursor: pointer;
 }
-
 
 /*固定ページ共通*/
 h1.c-pageTitle {
@@ -119,6 +178,25 @@ h1.c-pageTitle {
 }
 
 /*TOP*/
+/*スクロールボタン*/
+.p-mainVisual__scroll {
+  bottom: 30px;
+  display: flex;
+  flex-flow: column-reverse;
+}
+
+.p-mainVisual__scrollArrow {
+  position: relative;
+  height: auto;
+  width: auto;
+  animation: pathmove 1.4s ease-in-out infinite;
+}
+
+.p-mainVisual__scrollLabel {
+  font-size: 14px;
+}
+
+/*スクロールボタン*/
 .instagram-icon.wp-block-social-link {
   margin-right: 0 !important;
 }
@@ -276,6 +354,16 @@ span.cf7-note {
   margin-left: 1em;
 }
 
+/*Eat-IN*/
+.day-calendar table {
+  margin: 0 auto;
+}
+
+.day-calendar p {
+  margin: 0 auto;
+  width: 80%;
+}
+
 /*下層ページタイトル共通*/
 figure.underpage-hero-image {
   z-index: 1 !important;
@@ -307,7 +395,7 @@ h3.footer-access-title {
 }
 
 .l-footer .copyright {
-  font-size: 20px;
+  font-size: .9em;
   text-align: right;
 }
 
@@ -530,9 +618,7 @@ h3.footer-access-title {
   }
 
   .icon-close-thin:before {
-    height: 33vh;
-    width: 22vw;
-    right: 78vw;
+    right: 77.9vw;
   }
 
   .menu-item-882 a img {

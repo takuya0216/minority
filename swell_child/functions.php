@@ -38,7 +38,7 @@ function child_style_both(){
   wp_enqueue_style('child-style-both', get_stylesheet_directory_uri() . '/style_both.css', [], $timestamp);
   //AdobeFonts
   wp_enqueue_style('mytheme-adobefonts', 'https://use.typekit.net/wax1taj.css', array(), null);
-
+  wp_enqueue_style('mytheme-googlefonts', 'https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&display=swap', [], null);
 }
 add_action('enqueue_block_assets', 'child_style_both');
 

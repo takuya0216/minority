@@ -12,37 +12,27 @@ window.addEventListener('resize', () => {
 });
 
 jQuery(function ($) {
-  /*ヘッダーをスクロールで縮める必要あれば使う
-  var header_menubtn = $('.l-header__menuBtn');
-  var header_icon_border = $('.icon-menu-thin');
-  var header = $('.l-header');
-  */
+
   const scrollTime = 700;
 
   /* window scroll function start*/
   $(window).scroll(function () {
-    /*ヘッダーをスクロールで縮める必要あれば使う
-    if ($(this).scrollTop() > 100) {
-      header_icon_border.addClass('scroll');
-      header_menubtn.addClass('scroll');
-	    header.addClass('scroll');
-    } else {
-      header_icon_border.removeClass('scroll');
-      header_menubtn.removeClass('scroll');
-	    header.removeClass('scroll');
-    }
-    */
-  });
+    scroll_effect();
+  }).trigger('scoll');
   /* window scroll function end*/
 
-  /*トップへ戻るボタン スクロール*/
+  /*トップのスクロールボタン矢印*/
+  $('p-mainVisual__scrollArrow').empty();
+  $('.p-mainVisual__scroll').html('<svg class="p-mainVisual__scrollArrow" xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 24 34" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><line x1="11" y1="0" x2="11" y2="29"></line></svg><span class="p-mainVisual__scrollLabel">Scroll</span>');
+
+	/*トップへ戻るボタン スクロール*/
   $('#pagetop').on('click',function(){
       $("html").animate({scrollTop: 0}, { duration: scrollTime, easing: 'swing', });
   });
 
   /*日付カレンダー設定*/
   $("#cf7-pickup-date").datepicker({
-	  dateFormat: 'yy年mm月dd日',
+    dateFormat: 'yy年mm月dd日',
 	  yearSuffix: '年',
 	  showMonthAfterYear: true,
 	  monthNames: ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月'],
@@ -50,6 +40,19 @@ jQuery(function ($) {
 	  dayNamesMin: ['日', '月', '火', '水', '木', '金', '土'],
 	  minDate: "+5d",
   });
-	$("#Date").datepicker("setDate", "+5d");
+  $("#Date").datepicker("setDate", "+5d");
 
+  //スクロールアニメーション
+  function scroll_effect() {
+    //fade-in-up
+    $('.fade-in-up').each(function () {
+        //.fade-in-upを指定したエレメントのBottom位置がトリガー。
+        var elemPos = $(this).offset().top + $(this).outerHeight() - 100;
+        var scroll = $(window).scrollTop();
+        var windowHeight = $(window).height();
+        if (elemPos < scroll + windowHeight){
+            $(this).addClass('effect-scroll');
+        }
+    });
+  }
 });
