@@ -6,6 +6,7 @@
 .fullwide-inner-shrink {
   --swl-pad_container: var(--inner-shrink);
 }
+
 /*END 変数*/
 
 /*START 基本*/
@@ -32,6 +33,12 @@ a:hover {
 .l-content {
   margin-bottom: 0;
 }
+
+/*wordpress6.0変更*/
+.gap-0 {
+  gap: 0 !important;
+}
+
 /*END 基本*/
 
 /*START アニメーション*/
@@ -414,6 +421,7 @@ div#breadcrumb {
   background: #d7d7d1;
   color: #000;
 }
+
 /*END パンくず*/
 
 /*START フッター*/
@@ -434,6 +442,7 @@ h3.footer-access-title {
 .w-footer__box {
   padding: 0;
 }
+
 /*END フッター*/
 
 /*START コンテンツ幅以下*/
@@ -442,6 +451,7 @@ h3.footer-access-title {
     transform: translatex(0px);
   }
 }
+
 /*END コンテンツ幅以下*/
 
 @media (min-width: 960px) {
@@ -543,7 +553,6 @@ h3.footer-access-title {
 
   /*Eatinページ*/
   .wp-block-column.is-vertically-aligned-top.eatin-title-inner-col2.underpage-title-inner-col2 {
-    position: absolute;
     right: var(--swl-pad_container, 4vw);
   }
 
