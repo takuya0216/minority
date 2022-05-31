@@ -1,6 +1,7 @@
 /*START 変数*/
 :root {
   --inner-shrink: 7vw;
+  --instagram-title-img: 57.6vw;
 }
 
 .fullwide-inner-shrink {
@@ -213,10 +214,6 @@ h1.c-pageTitle {
   display: none;
 }
 
-.wp-block-column.underpage-title-inner-col1 {
-  padding-left: 2vw;
-}
-
 /*END 固定ページ共通*/
 
 /*START TOPページ*/
@@ -239,10 +236,10 @@ h1.c-pageTitle {
 }
 
 .info-btn a {
-  padding: 25px;
-  font-size: 1.5rem !important;
+  padding: 18.75px;
+  font-size: 1rem !important;
   letter-spacing: 0.1em;
-  min-width: 70%;
+  min-width: 42.5% !important;
 }
 
 .wp-block-image.top-eatin-fruit-sp {
@@ -257,20 +254,9 @@ h2.top-about-title {
 /*END TOPページ*/
 
 /*START CAKEページ*/
-h2.section-title-minion.cakemenu-title:after {
-  content: "※写真は一例です。";
-  font-family: auto;
-  font-weight: normal;
-  font-size: 0.875rem;
-  position: absolute;
-  bottom: 0;
-  margin-left: 3vw;
-  letter-spacing: .1em;
-}
 
-.cake-gallery.has-nested-images figure.wp-block-image:not(#individual-image) {
-  margin: 1px var(--gallery-block--gutter-size, 16px) var(--gallery-block--gutter-size, 60px) 0;
-  width: calc(50% - var(--gallery-block--gutter-size, 60px)/2);
+.cake-gallery {
+  row-gap: 3.5em !important;
 }
 
 .cake-gallery.has-nested-images figure.wp-block-image figcaption {
@@ -294,9 +280,14 @@ h2.section-title-minion.cakemenu-title:after {
   padding-left: 0 !important;
 }
 
+.cake-price-inner-col {
+  row-gap: 2em !important;
+  justify-content: space-between;
+}
+
 /*コンタクフォーム*/
 label.cf7-section-label {
-  font-size: 1.25rem;
+  font-size: 1rem;
   font-weight: bold;
   display: inline-block;
   width: 100%;
@@ -330,7 +321,7 @@ input.wpcf7-form-control.has-spinner.wpcf7-submit {
   background: var(--color_main);
   color: #fff;
   font-weight: bold;
-  width: 415px;
+  padding: 5px 40px;
   border-radius: 8px;
   margin: 0 auto 3em;
   display: block;
@@ -375,8 +366,21 @@ div#wpcf7cpcnf {
   display: none;
 }
 
+button.wpcf7-form-control {
+  background: #000;
+  color: #fff;
+  border-radius: 10px;
+  font-size: 1rem;
+  /* padding: 6px 15px; */
+}
+
 button.wpcf7-form-control.wpcf7cp-cfm-edit-btn {
   margin-bottom: 5em;
+}
+
+textarea.wpcf7-form-control.wpcf7-textarea {
+  height: 20vh;
+  line-height: normal;
 }
 
 /*END CAKEページ*/
@@ -462,8 +466,13 @@ h3.footer-access-title {
   }
 }
 
-/*Swellのクエリ*/
+/*Swellのスマホ*/
 @media (max-width: 959px) {
+
+  /*基本*/
+  .sp-mb-6em {
+    margin-bottom: 4em !important;
+  }
 
   /*ヘッダー*/
   .l-header__inner {
@@ -493,7 +502,7 @@ h3.footer-access-title {
   }
 
   .top-eatin-fruit-sp img {
-    max-width: 85%;
+    max-width: 72%;
   }
 
   .top-cake-fruit-sp img {
@@ -512,6 +521,10 @@ h3.footer-access-title {
     right: var(--swl-pad_container, 4vw);
   }
 
+  .tell-btn a {
+    width: fit-content !important;
+  }
+
   /*フッター*/
   .l-footer__foot,
   .l-footer__widgetArea {
@@ -519,13 +532,15 @@ h3.footer-access-title {
   }
 }
 
+@media (max-width: 781px) {
+  .wp-block-columns.sp_column2>.wp-block-column {
+    flex-basis: calc(50% - var(--wp--style--block-gap)/2) !important;
+    flex-grow: 0 !important;
+  }
+}
+
 /* 中デバイス  (タブレット以下)*/
 @media (max-width: 768px) {
-
-  .section-title-minion {
-    font-size: 2.125em !important;
-    margin-top: 0.5em !important;
-  }
 
   .section-title-info {
     margin-bottom: 0 !important;
@@ -537,12 +552,7 @@ h3.footer-access-title {
   }
 
   .info-btn a {
-    font-size: 1.1rem !important;
-  }
-
-  .info-btn a {
-    width: 100%;
-    font-size: 1.5em !important;
+    width: 75%;
   }
 
   .underpage-wp-title {
@@ -575,6 +585,10 @@ h3.footer-access-title {
   .wpcf7-list-item {
     margin: 0 1em 0 0;
   }
+
+  span.wpcf7-form-control-wrap.checkbox-165 span span {
+    flex-basis: 100%;
+  }
 }
 
 
@@ -597,14 +611,10 @@ h3.footer-access-title {
 
 @media (max-width: 600px) {
 
-  .tell-btn a span {
-    font-size: 1rem !important;
-  }
-
   /*TOPページ*/
   .info-btn a {
-    padding: 14px;
-    font-size: 1.1em !important;
+    padding: 10.5px;
+    font-size: .9rem !important;
   }
 
   .wp-block-columns.sp_column2>.wp-block-column.top-eatin-col-left {
@@ -640,7 +650,7 @@ h3.footer-access-title {
   }
 
   .top-cake-fruit-sp img {
-    max-width: 38vw;
+    max-width: 32vw;
   }
 
   h2.top-about-title {
@@ -654,10 +664,11 @@ h3.footer-access-title {
 
   .icon-close-thin:before {
     right: 76.9vw;
+    max-width: 36px;
   }
 
   .menu-item-882 a img {
-    width: 130px;
+    width: 78.5px;
   }
 
   .menu-item-866 a img {
@@ -665,11 +676,11 @@ h3.footer-access-title {
   }
 
   .menu-item-865 a img {
-    width: 158px;
+    width: 95.5px;
   }
 
   .menu-item-886 a img {
-    width: 28px;
+    width: 24px;
   }
 
   /*EAT-INページ*/
@@ -677,6 +688,10 @@ h3.footer-access-title {
     padding-top: 22vw !important;
     margin-top: -20vw !important;
     padding-bottom: 12vw !important;
+  }
+
+  .eatin-page-title figure img {
+    max-width: calc(var(--instagram-title-img)*1.2);
   }
 
   .wp-block-columns.eatin-title-inner.underpage-title-inner.sp_column2 {
@@ -692,7 +707,7 @@ h3.footer-access-title {
     top: 25vw;
     right: var(--swl-pad_container, 0);
     z-index: -1;
-    width: 40vw;
+    width: 32vw;
   }
 
   .wp-block-image.eatin-pagetitle {
@@ -700,6 +715,10 @@ h3.footer-access-title {
   }
 
   /*CAKEページ*/
+  .cake-pagetitle figure img {
+    max-width: calc(var(--instagram-title-img)*1.037);
+  }
+
   .cake-pagetitle,
   p.cake-page-subtitle {
     width: 80vw;
@@ -717,12 +736,16 @@ h3.footer-access-title {
 
   /*コンタクトフォーム*/
   input.wpcf7-form-control.has-spinner.wpcf7-submit {
-    width: 70%;
+    font-size: 1rem;
   }
 
   span.cf7-note {
     display: inline-block;
     margin-left: 0;
+  }
+
+  label.cf7-section-label {
+    font-size: 1.1em;
   }
 
   label.cf7-section-label.cf7-section-platemessage span.cf7-note {
@@ -755,18 +778,16 @@ h3.footer-access-title {
     margin: 0 auto;
   }
 
-  .cake-price-inner-col {
-    gap: 40px;
-  }
-
   .cake-price-col>.wp-block-column {
     padding: 35px 50px 20px;
   }
 
   div#wpcf7-f9-p38-o2,
-  .wpcf7cpcnf-title {
+  .wpcf7cpcnf-title,
+  .cake-orderform-title {
     width: 70%;
-    margin: 0 auto;
+    margin-left: auto !important;
+    margin-right: auto !important;
   }
 }
 
@@ -783,7 +804,15 @@ h3.footer-access-title {
 }
 
 .instagram-section-title img {
-  max-width: 64vw;
+  max-width: var(--instagram-title-img);
+}
+
+.eatin-section-title img {
+  max-width: calc(var(--instagram-title-img) * 1.15);
+}
+
+.cake-section-title img {
+  max-width: calc(var(--instagram-title-img) * 0.583);
 }
 
 div#sb_instagram {
