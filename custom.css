@@ -35,6 +35,24 @@ a:hover {
   margin-bottom: 0;
 }
 
+input[type="checkbox"] {
+  cursor: pointer;
+}
+
+input[type="checkbox"]+span {
+  cursor: pointer;
+}
+
+input[type="checkbox"]:disabled {
+  cursor: default;
+  opacity: .5;
+}
+
+input[type="checkbox"]:disabled+span {
+  cursor: default;
+  opacity: .5;
+}
+
 /*wordpress6.0変更*/
 .gap-0 {
   gap: 0 !important;
@@ -285,7 +303,7 @@ h2.top-about-title {
   justify-content: space-between;
 }
 
-/*コンタクフォーム*/
+/*コンタクトフォーム*/
 label.cf7-section-label {
   font-size: 1rem;
   font-weight: bold;
@@ -325,6 +343,7 @@ input.wpcf7-form-control.has-spinner.wpcf7-submit {
   border-radius: 8px;
   margin: 0 auto 3em;
   display: block;
+  font-size: .9rem;
 }
 
 span.cf7-note {
