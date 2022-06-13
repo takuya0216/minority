@@ -26,8 +26,12 @@ add_action('wp_enqueue_scripts', function() {
 	wp_enqueue_script('jquery-ui-datepicker', '//ajax.googleapis.com/ajax/libs/jqueryui/1/i18n/jquery.ui.datepicker-ja.min.js', []);
 	/*jquery datepicker関係*/
 
+	/*SweetAlert*/
+	wp_enqueue_script('sweetalert', '//cdn.jsdelivr.net/npm/sweetalert2@11', []);
+
+	/*カスタマイズ用javaスクリプト*/
 	$timestamp = date( 'Ymdgis', filemtime( get_stylesheet_directory() . '/myscript.js' ) );
-	wp_enqueue_script('myjs', get_stylesheet_directory_uri() . '/myscript.js', [], $timestam );
+	wp_enqueue_script('myjs', get_stylesheet_directory_uri() . '/myscript.js', [], $timestamp );
 
 }, 11);
 
@@ -53,3 +57,10 @@ function Include_my_php($params = array()) {
     return ob_get_clean();
 }
 add_shortcode('include_myphp', 'Include_my_php');
+
+//MTS Simple Bokking
+//予約フォームの人数種別ラベル（大人・小人）を消す
+function my_booking_form_count_label() {
+    return '';
+}
+add_filter('booking_form_count_label', 'my_booking_form_count_label');

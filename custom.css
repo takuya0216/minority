@@ -415,6 +415,10 @@ textarea.wpcf7-form-control.wpcf7-textarea {
   width: 80%;
 }
 
+a.booking-timelink {
+  font-size: 1rem;
+}
+
 /*END EATINページ*/
 
 /*START 下層ページタイトル共通*/
