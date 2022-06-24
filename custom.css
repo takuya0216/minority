@@ -56,6 +56,7 @@ input[type="checkbox"]:disabled+span {
 /*wordpress6.0変更*/
 .gap-0 {
   gap: 0 !important;
+  --wp-column-gap: 0;
 }
 
 /*END 基本*/
@@ -235,6 +236,13 @@ h1.c-pageTitle {
 /*END 固定ページ共通*/
 
 /*START TOPページ*/
+
+/*メインビジュアル*/
+.p-mainVisual.-height-full {
+  height: calc(var(--swl-mv-height, 100vh) - var(--swl-headerH, 0px) - var(--swl-adminbarH, 0px));
+  height: calc(var(--vh, 1vh) * 100);
+}
+
 /*スクロールボタン*/
 .p-mainVisual__scroll {
   bottom: 30px;
@@ -402,6 +410,35 @@ textarea.wpcf7-form-control.wpcf7-textarea {
   line-height: normal;
 }
 
+.ui-timepicker-standard a {
+  border-bottom: 1px solid #ddd;
+  border-top: 1px solid #ddd;
+  color: #000;
+  font-size: 1em;
+  display: block;
+  padding: 0.5em 1em;
+  text-decoration: none;
+  margin-bottom: -1px;
+}
+
+.ui-timepicker {
+  text-align: left;
+}
+
+.ui-timepicker-standard {
+  font-family: inherit;
+  font-size: 1em;
+  background-color: #FFF;
+  border: none;
+  color: #000;
+  margin: 0;
+  padding: 1px 0 0 0;
+}
+
+.ui-widget.ui-widget-content {
+  border: 1px solid #ddd;
+}
+
 /*END CAKEページ*/
 
 /*START EATINページ*/
@@ -557,7 +594,7 @@ h3.footer-access-title {
 
 @media (max-width: 781px) {
   .wp-block-columns.sp_column2>.wp-block-column {
-    flex-basis: calc(50% - var(--wp--style--block-gap)/2) !important;
+    flex-basis: calc(50% - 1em/2) !important;
     flex-grow: 0 !important;
   }
 }
@@ -783,6 +820,11 @@ h3.footer-access-title {
     margin: 0 auto;
   }
 
+  .ui-timepicker,
+  .ui-timepicker-viewport {
+    height: 160px;
+  }
+
   /*フッター*/
   .wp-block-image.footer-map figure {
     width: 100%;
@@ -811,6 +853,10 @@ h3.footer-access-title {
     width: 70%;
     margin-left: auto !important;
     margin-right: auto !important;
+  }
+
+  .ui-timepicker-standard a {
+    font-size: .8em;
   }
 }
 

@@ -5,7 +5,12 @@ let vh = window.innerHeight * 0.01;
 document.documentElement.style.setProperty('--vh', `${vh}px`);
 
 // ビューポートリサイズ
-window.addEventListener('resize', () => {
+window.addEventListener('resize', function() {
+
+  let vh = window.innerHeight * 0.01;
+  document.documentElement.style.setProperty('--vh', `${vh}px`);
+});
+window.addEventListener('load', function() {
 
   let vh = window.innerHeight * 0.01;
   document.documentElement.style.setProperty('--vh', `${vh}px`);
@@ -31,7 +36,7 @@ jQuery(function ($) {
 });
 
   /*トップメインビジュアル スクロールボタン矢印*/
-  $('p-mainVisual__scrollArrow').empty();
+  $('.p-mainVisual__scrollArrow').empty();
   $('.p-mainVisual__scroll').html('<svg class="p-mainVisual__scrollArrow" xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 24 34" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><line x1="11" y1="0" x2="11" y2="29"></line></svg><span class="p-mainVisual__scrollLabel">Scroll</span>');
 
   /*トップへ戻るボタン スクロール*/
@@ -46,11 +51,23 @@ jQuery(function ($) {
 	 $(this).addClass('fade-in-up');
  });
 
-  /*Cake予約 お渡し日カレンダー設定*/
+/*Cake予約 お渡し日カレンダー設定*/
   //選択付加の日付。「yyyy/mm/dd」形式でコンマ区切りで指定。
   var disableDates = [
-    "2022/06/06",
-	"2022/06/14"
+	  "2022/07/18",
+	  "2022/08/11",
+	  "2022/09/19",
+	  "2022/09/23",
+	  "2022/10/10",
+	  "2022/11/03",
+	  "2022/11/23",
+	  "2022/12/28",
+	  "2022/12/29",
+	  "2022/12/30",
+	  "2022/12/31",
+	  "2023/01/01",
+	  "2023/01/02",
+	  "2023/01/03"
   ];
   $("#cf7-pickup-date").datepicker({
       dateFormat: 'yy/mm/dd',
@@ -67,9 +84,11 @@ jQuery(function ($) {
       if (date.getDay() == 0 || date.getDay() == 6) {
         return [false, ''];
       }
+
       // 特定日を選択できないようにする
       var disableDate = $.datepicker.formatDate('yy/mm/dd', date);
-      if (disableDates.indexOf(disableDate) == 1) {
+	  //console.log(disableDates.indexOf(disableDate))
+      if (disableDates.indexOf(disableDate) != -1) {
           return [false, ''];
       }
       // それ以外
@@ -83,44 +102,58 @@ jQuery(function ($) {
   //
   var enableMenu_Monday = ["季節のフルーツショートケーキ"];
   $("#cf7-pickup-date").change(function() {
-    var val = $(this).val(); //お渡し日値yyyy/mm/dd
-	  var date = new Date(val); //Date型変換
-    //月曜日の制限
-    if(date.getDay() == 1){
-      //メニュー選択済みの場合処理
-      //enableMenu_Monday以外はアラートし、選択解除。
-      $('#cake-menu-checkbox :checkbox:checked').each(function() {
-        //値を取得
-        var val = $(this).val();
-        if(!enableMenu_Monday.includes(val)){
-          $(this).prop('checked', false);//選択解除
-          Swal.fire({
-            icon: 'warning',
-            title: 'メニューのご確認',
-            html: '申し訳ございません。月曜日お渡しの場合は、<br>「季節のフルーツショートケーキ」のみ選択可能となっております。'
-          });
+  var val = $(this).val(); //お渡し日値yyyy/mm/dd
+	var date = new Date(val); //Date型変換
+	//月曜日の制限
+	if(date.getDay() == 1){
+		//メニュー選択済みの場合処理
+		//enableMenu_Monday以外はアラートし、選択解除。
+		$('#cake-menu-checkbox :checkbox:checked').each(function() {
+			//値を取得
+			var val = $(this).val();
+			if(!enableMenu_Monday.includes(val)){
+				$(this).prop('checked', false);//選択解除
+				Swal.fire({
+					icon: 'warning',
+					title: 'メニューのご確認',
+					html: '申し訳ございません。月曜日お渡しの場合は、<br>「季節のフルーツショートケーキ」のみ選択可能となっております。'
+				});
 
-        }
-      });
-      //チェックボックスを選択不可にする
-      //enableMenu_Monday以外は選択不可
-      $('#cake-menu-checkbox :checkbox').each(function() {
-        var val = $(this).val();
-        if(!enableMenu_Monday.includes(val)){
-          $(this).prop('disabled', true);
-        }
-        else{
-          $(this).prop('disabled', false);
-        }
-      });
-	  }
-    //制限曜日以外
-    //選択不可解除
-    else{
-      $('#cake-menu-checkbox :checkbox').each(function() {
-        $(this).prop('disabled', false);
-      });
-    }
+			}
+		});
+		//チェックボックスを選択不可にする
+		//enableMenu_Monday以外は選択不可
+		$('#cake-menu-checkbox :checkbox').each(function() {
+			var val = $(this).val();
+			if(!enableMenu_Monday.includes(val)){
+				$(this).prop('disabled', true);
+			}
+			else{
+				$(this).prop('disabled', false);
+			}
+		});
+	}
+	//制限曜日以外
+	//選択不可解除
+	else{
+		$('#cake-menu-checkbox :checkbox').each(function() {
+			$(this).prop('disabled', false);
+		});
+	}
+  });
+
+  //お渡し時間
+  //
+  $('#cf7-timepicker').timepicker({
+    timeFormat: 'H:mm',
+    interval: 15,
+    minTime: '14',
+    maxTime: '16:00pm',
+    startTime: '14:00pm',
+    dynamic: false,
+    dropdown: true,
+    scrollbar: true,
+	zindex:1
   });
 
   //スクロールアニメーション
@@ -148,6 +181,5 @@ jQuery(function ($) {
     	return false;
     }
  }
-
 
 });

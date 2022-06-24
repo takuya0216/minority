@@ -19,19 +19,23 @@ add_action('wp_enqueue_scripts', function() {
 	wp_enqueue_style( 'child_style', get_stylesheet_directory_uri() .'/style.css', [], $timestamp );
 
 	/* その他の読み込みファイルはこの下に記述 */
-	/*jquery datepicker関係*/
+	/*jquery datepicker*/
 	wp_enqueue_style( 'jquery-ui_style', '//ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css', [] );
 	wp_enqueue_script('jquery3.6.0', '//ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js', []);
 	wp_enqueue_script('jquery-ui', '//ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js', []);
 	wp_enqueue_script('jquery-ui-datepicker', '//ajax.googleapis.com/ajax/libs/jqueryui/1/i18n/jquery.ui.datepicker-ja.min.js', []);
-	/*jquery datepicker関係*/
+	/*jquery datepicker*/
+	/*jquery timepicker*/
+	wp_enqueue_style( 'jquery-timepicker-style', '//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.css', [] );
+	wp_enqueue_script('jquery-timepicker', '//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.js', [],true);
+	/*jquery timepicker*/
 
 	/*SweetAlert*/
 	wp_enqueue_script('sweetalert', '//cdn.jsdelivr.net/npm/sweetalert2@11', []);
 
 	/*カスタマイズ用javaスクリプト*/
 	$timestamp = date( 'Ymdgis', filemtime( get_stylesheet_directory() . '/myscript.js' ) );
-	wp_enqueue_script('myjs', get_stylesheet_directory_uri() . '/myscript.js', [], $timestamp );
+	wp_enqueue_script('myjs', get_stylesheet_directory_uri() . '/myscript.js', [], $timestamp,true );
 
 }, 11);
 
@@ -64,3 +68,11 @@ function my_booking_form_count_label() {
     return '';
 }
 add_filter('booking_form_count_label', 'my_booking_form_count_label');
+
+//予約可能マーク表示制御
+//カレンダー＝マーク表示、予約時間割り＝残席数表示
+function mts_daily_mark($mark, $number) {
+	$output = "残り" . $number . "席";
+	return $output;
+}
+add_filter('mtssb_daily_mark', 'mts_daily_mark', 10, 2);
