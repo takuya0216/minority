@@ -50,6 +50,9 @@ function child_style_both(){
 }
 add_action('enqueue_block_assets', 'child_style_both');
 
+//エラー非表示
+error_reporting(0);
+
 /*ショートコード*/
 /*ショートコードを使ったphpファイルの呼び出し方法*/
 function Include_my_php($params = array()) {
@@ -76,3 +79,30 @@ function mts_daily_mark($mark, $number) {
 	return $output;
 }
 add_filter('mtssb_daily_mark', 'mts_daily_mark', 10, 2);
+
+
+add_filter( 'wpcf7_validate_email', 'wpcf7_validate_email_filter', 10, 2 );
+add_filter( 'wpcf7_validate_email*', 'wpcf7_validate_email_filter', 10, 2 );
+function wpcf7_validate_email_filter( $result, $tag ) {
+	$your_email = $_POST['your-email'];
+	$email_confirm = $_POST['email_confirm'];
+	if ($your_email != $email_confirm) {
+		if (method_exists($result, 'invalidate')) {
+			$result->invalidate( $tag,"メールアドレスが一致していません");
+		} else {
+			$result['valid'] = false;
+			$result['reason'][$name] = 'メールアドレスが一致していません';
+		}
+	}
+	return $result;
+}
+
+add_filter('wp_headers', 'disable_page_cache');
+function disable_page_cache($headers) {
+    if (is_page('EAT-IN')) {
+        $headers['Cache-Control'] = 'no-store, no-cache, must-revalidate, max-age=0';
+        $headers['Pragma'] = 'no-cache';
+        $headers['Expires'] = '0';
+    }
+    return $headers;
+}

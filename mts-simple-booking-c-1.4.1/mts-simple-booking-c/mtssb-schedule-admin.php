@@ -37,7 +37,8 @@ class MTSSB_Schedule_Admin { //extends MTSSB_Schedule {
 	 * インスタンス化
 	 *
 	 */
-	static function get_instance() {
+	public static function get_instance() {
+
 		if (!isset(self::$iSchedule)) {
 			self::$iSchedule = new MTSSB_Schedule_Admin();
 		}
@@ -78,6 +79,24 @@ class MTSSB_Schedule_Admin { //extends MTSSB_Schedule {
 		$this->themonth = mktime(0, 0, 0, date_i18n('n'), 1, date_i18n('Y'));
 
 		if (isset($_REQUEST['action'])) {
+
+			//edit
+			//タイマーモードの設定
+			if (isset($_POST['time_save'])){
+				if($_POST['time_save'] == 'true'){
+					$updatetime = $_POST['reserve_time'];
+					update_option('mtssb_reserve_time', $updatetime);
+					$_REQUEST['action'] = 'time_save';
+				}
+			}
+			//タイマーモードのリセット
+			if (isset($_POST['reset_reserve_time'])){
+				$_REQUEST['action'] = 'reset_reserve_time';
+			}
+
+			//edit
+			//タイマーモードの実行追加
+			//
 			switch ($_REQUEST['action']) {
 				case 'schedule' :
 					$this->_schedule_parameter(intval($_GET['article_id']), intval($_GET['schedule_year']), intval($_GET['schedule_month']));
@@ -93,16 +112,62 @@ class MTSSB_Schedule_Admin { //extends MTSSB_Schedule {
 						$this->message = "Nonce error";
 					}
 					break;
+				case 'time_save' :
+					$this->_schedule_parameter(intval($_POST['article_id']), intval($_POST['schedule_year']), intval($_POST['schedule_month']));
+					if ( !wp_verify_nonce($_POST['nonce'], self::PAGE_NAME . '-save') ) {
+						$this->errflg = true;
+						$this->message = "Nonce error";
+						break;
+					}
+					//品目・年・月の組み合わせをキーとして、キーに対し一つしかスケジュールはできない。
+					if ( wp_next_scheduled( 'mtsbb_reserve_time_schedule' , array( $_POST['article_id'], $_POST['schedule_year'], $_POST['schedule_month']) )) {
+						$this->errflg = true;
+						$this->message = __('既にスケジュールが予約されています。', $this->domain);
+						break;
+					}
+					$this->article_id = intval($_POST['article_id']);
+					//更新をスケジュールする
+					if( $this->_save_next_schedule( $_POST['article_id'], $_POST['schedule_year'], $_POST['schedule_month'], $_POST['schedule'], $updatetime )){
+						$this->_schedule_parameter(intval($_POST['article_id']), intval($_POST['schedule_year']), intval($_POST['schedule_month']));
+						$this->message = __('更新予約が設定されました。', $this->domain);
+						$this->errflg = false;
+					}
+					else{
+						if(!$this->errflg){
+							$this->errflg = true;
+							$this->message = __('更新予約に失敗。', $this->domain);
+						}
+					}
+					break;
+				case 'reset_reserve_time':
+					$this->_schedule_parameter(intval($_POST['article_id']), intval($_POST['schedule_year']), intval($_POST['schedule_month']));
+					if($this->reset_reserve_time( $_POST['article_id'], $_POST['schedule_year'], $_POST['schedule_month'])){
+						$this->message = __('更新予約がキャンセルされました。', $this->domain);
+					}
+					else{
+						if(!$this->errflg){
+							$this->errflg = true;
+							$this->message = __('更新予約キャンセルに失敗。', $this->domain);
+						}
+					}
+					break;
 				default:
 					$this->errflg = true;
 					$this->message  = "Unknown action";
 					break;
 			}
 		}
-
+		//edit
 		// 対象年月のスケジュールデータの読み込み
-		$key_name = MTS_Simple_Booking::SCHEDULE_NAME . date_i18n('Ym', $this->themonth);
-		$this->schedule = get_post_meta($this->article_id, $key_name, true);
+		if(wp_next_scheduled('mtsbb_reserve_time_schedule', array("$this->article_id", strval(date('Y', $this->themonth)), strval(date('n', $this->themonth))))){
+			$key_name = 'next_' . MTS_Simple_Booking::SCHEDULE_NAME . date_i18n('Ym', $this->themonth);
+			$this->schedule = get_post_meta($this->article_id, $key_name, true);
+		}
+		else{
+			$key_name = MTS_Simple_Booking::SCHEDULE_NAME . date_i18n('Ym', $this->themonth);
+			$this->schedule = get_post_meta($this->article_id, $key_name, true);
+		}
+		//edit
 
 ?>
 	<div class="wrap">
@@ -145,7 +210,6 @@ class MTSSB_Schedule_Admin { //extends MTSSB_Schedule {
 		$endd = count($schedule);
 		$endi = $starti + $endd + 5 - date('w', mktime(0, 0, 0, date('n', $this->themonth), $endd, date('Y', $this->themonth)));
 
-
 ?>
 	<form method="post" action="?page=<?php echo self::PAGE_NAME ?>">
 		<div class="mtssb-schedule">
@@ -157,7 +221,7 @@ class MTSSB_Schedule_Admin { //extends MTSSB_Schedule {
 
 			<?php
 				for ($i = 0, $day = 1 - $starti; $i <= $endi ; $i++, $day++) {
-					// フロート解除
+					// フロートキャンセル
 					if ($i % 7 == 0) {
 						echo "<div class=\"clear\"> </div>\n";
 					}
@@ -180,14 +244,37 @@ class MTSSB_Schedule_Admin { //extends MTSSB_Schedule {
 			<div class="clear"> </div>
 		</div><!-- mtssb-schedule -->
 
+		<!-- edit -->
+		<?php $NEXT_SCHEDULE = wp_next_scheduled('mtsbb_reserve_time_schedule', array("$this->article_id", strval(date('Y', $this->themonth)), strval(date('n', $this->themonth)))); ?>
 		<?php if (!$disabled) : ?><div class="schedule-footer">
 			<input type="hidden" name="article_id" value="<?php echo $this->article_id ?>" />
 			<input type="hidden" name="schedule_year" value="<?php echo date('Y', $this->themonth) ?>" />
 			<input type="hidden" name="schedule_month" value="<?php echo date('n', $this->themonth) ?>" />
 			<input type="hidden" name="nonce" value="<?php echo wp_create_nonce(self::PAGE_NAME . '-save') ?>" />
 			<input type="hidden" name="action" value="save" />
-			<input type="submit" class="button-primary" value="<?php _e('Save Schedule', $this->domain) ?>" id="schedule-save" />
+			<input type="submit" class="button-primary" value="<?php _e('Save Schedule', $this->domain) ?>" id="schedule-save" <?php if($NEXT_SCHEDULE){ echo "disabled"; } ?> />
 		</div><?php endif; ?>
+		<?php if (!$disabled) : ?><div class="schedule-timer-option">
+		    <input type="checkbox" name="time_save" value="true" /><span>更新予約する</span>
+		    <input type="datetime-local" name="reserve_time" value="<?php echo esc_attr( get_option( 'mtssb_reserve_time' ) ); ?>" style="
+    margin-left: 1em;" />
+		    <input type="submit" class="button-primary" value="更新予約をキャンセル" name="reset_reserve_time" <?php if(!$NEXT_SCHEDULE){ echo "disabled"; } ?> />
+		    <p>　次の更新時刻：<?php
+
+		            if($NEXT_SCHEDULE){
+						echo date("Y-m-d H:i:s", $NEXT_SCHEDULE) . '　' . $this->get_time_left($NEXT_SCHEDULE);
+					}
+					else{
+						echo '更新予約はありません。';
+					}
+			?>
+		    </p>
+		<p class="description">　・「更新予約する」がチェックされた状態で「スケジュールを保存」を押すと、設定時刻で更新予約されます。</p>
+		<p class="description">　・各スケジュールページ毎に最大一つまで予約できます。</p>
+		<p class="description">　・更新予約中は、手動予約はできません。「更新予約をキャンセル」ボタンを押して予約をキャンセルしてください。</p>
+		<p class="description">　・更新予約中は、管理画面には更新予定のスケジュールが表示されます。予約をキャンセルすると、元のスケジュールが表示されます。</p>
+		</div><?php endif; ?>
+		<!-- edit -->
 	</form>
 
 	<div id="schedule-description">
@@ -236,7 +323,7 @@ class MTSSB_Schedule_Admin { //extends MTSSB_Schedule {
 					}
 					echo ">{$this->articles[$article_id]['name']}</option>\n";
 				} ?>
-			</select> 
+			</select>
 
 			<?php _e('Year: ', $this->domain); ?>
 			<select class="select-year" name="schedule_year">
@@ -299,7 +386,91 @@ class MTSSB_Schedule_Admin { //extends MTSSB_Schedule {
 
 		$key_name = MTS_Simple_Booking::SCHEDULE_NAME . sprintf("%04d%02d", intval($_POST['schedule_year']), intval($_POST['schedule_month']));
 		update_post_meta($article_id, $key_name, $_POST['schedule']);
+
 	}
+
+	//edit
+	/**
+	 * 次回のスケジュールイベント登録
+	 * 品目、年、月をキーとしたスケジュールのデータを一時保存
+	 * $kye_nameに一時保存用を指定
+	 */
+	private function _save_next_schedule($ARTICLE_ID, $YEAR, $MONTH, $SCHEDULE, $UPDATETIME){
+
+		//date_default_timezone_set( wp_timezone()->getName() );
+		$target_time = strtotime($UPDATETIME); //指定時刻を Unix タイムスタンプに変換
+		$deltatime = $target_time - strtotime(current_time("Y-m-d H:i"));
+		if($deltatime <= 0){
+			$this->errflg = true;
+			$this->message = __('未来の時間を設定してください。', $this->domain);
+			return false;
+		}
+
+		if(wp_schedule_single_event( time() + $deltatime, 'mtsbb_reserve_time_schedule', array( $ARTICLE_ID, $YEAR , $MONTH))){
+			//次のスケジュールを保存
+			$key_name = 'next_' . MTS_Simple_Booking::SCHEDULE_NAME . sprintf("%04d%02d", intval($YEAR), intval($MONTH));
+			update_post_meta(intval($ARTICLE_ID), $key_name, $SCHEDULE);
+			return true;
+		}
+		return false;
+	}
+
+	//edit
+	/**
+	 * 予約スケジュールの削除
+	 */
+	private function reset_reserve_time($ARTICLE_ID, $YEAR, $MONTH){
+		//一時保存スケジュールを取得
+		$timestamp = wp_next_scheduled( 'mtsbb_reserve_time_schedule', array( $ARTICLE_ID, $YEAR , $MONTH) );
+		if ( !$timestamp ) {
+			$this->errflg = true;
+			$this->message = __('更新予約が無いためキャンセルできませんでした。', $this->domain);
+			return false;
+		}
+		return wp_unschedule_event( $timestamp, 'mtsbb_reserve_time_schedule', array( $ARTICLE_ID, $YEAR , $MONTH));
+	}
+
+	//edit
+	/**
+	 * スケジュールデータの保存
+	 * 非同期処理のコールバック
+	 * _save_next_scheduleで保存したスケジュールを取ってくる
+	 */
+	public function _schedule_update_async($ARTICLE_ID, $YEAR, $MONTH) {
+
+		$aritcle_id = intval($ARTICLE_ID);
+		$year = intval($YEAR);
+		$month = intval($MONTH);
+
+		//一時保存スケジュールを取得
+		$key_name = 'next_' . MTS_Simple_Booking::SCHEDULE_NAME . sprintf("%04d%02d", $year, $month);
+		$SCHEDULE = get_post_meta($aritcle_id, $key_name, true);
+		//本体スケジュールを設定
+		$key_name = MTS_Simple_Booking::SCHEDULE_NAME . sprintf("%04d%02d", $year, $month);
+		update_post_meta($aritcle_id, $key_name, $SCHEDULE);
+
+		//メール通知
+		/*
+		$message = "スケジュールイベントが実行されました。" . $response;
+
+		//送信先メールアドレス
+		$to = get_option('admin_email');
+
+		//メールの件名
+		$subject = 'スケジュールイベントの実行確認';
+
+		//メールの本文
+		$body = $message . "。実行時刻は" . date( 'Y-m-d H:i:s', current_time( 'timestamp' ) ) . "です。";
+
+		//メールのヘッダー
+		$headers = array('Content-Type: text/html; charset=UTF-8');
+
+		//メール送信
+		wp_mail( $to, $subject, $body, $headers );
+		*/
+	}
+
+	//edit
 
 	/**
 	 * スケジュール管理に必要なパラメータの設定
@@ -360,4 +531,35 @@ class MTSSB_Schedule_Admin { //extends MTSSB_Schedule {
 		return $month;
 	}
 
+	//edit
+	/**
+	 * 非同期処理登録
+	 *
+	 */
+	static public function set_ajax_hook() {
+		add_action('mtsbb_reserve_time_schedule' , array('MTSSB_Schedule_Admin', '_schedule_update_async'), 10, 3);
+	}
+
+	/**
+	 * 残り時間を文字列フォーマットして返す
+	 */
+	 private function get_time_left($futuretime){
+		 date_default_timezone_set( wp_timezone()->getName() );
+		 $diff = $futuretime - time();
+		 if($diff < 0){
+			 return "0秒";
+		 }
+		 $hours = floor($diff / 3600); // 時間差を計算
+		 $minutes = floor(($diff % 3600) / 60); // 分差を計算
+		 $seconds = $diff % 60; // 秒差を計算
+		 $time_left = $hours . "時間" . $minutes . "分" . $seconds . "秒";
+
+		 if($hours > 0){
+			 return $hours . "時間" . $minutes . "分" . $seconds . "秒";
+		 }
+		 elseif($minutes > 0){
+			 return $minutes . "分" . $seconds . "秒";
+		 }
+		 return $seconds . "秒";
+	 }
 }

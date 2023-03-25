@@ -97,6 +97,12 @@ class MTS_Simple_Booking {
             register_widget(MTSSB_Calendar_Widget::BASE_ID);
         });
 
+		//edit
+		//スケジュールのフック登録
+		require_once('mtssb-schedule-admin.php');
+		MTSSB_Schedule_Admin::set_ajax_hook();
+		//edit
+
 	}
 
 	/**
@@ -338,7 +344,7 @@ class MTS_Simple_Booking {
 	 *
 	 */
 	public function form_dispatcher($content) {
-		
+
 		if (is_page(self::PAGE_BOOKING_FORM)) {
 			$booking_form = $this->_load_module('MTSSB_Booking_Form');
 			$content = $booking_form->booking_form($content);
@@ -407,4 +413,3 @@ class MTS_Simple_Booking {
 	}
 
 }
-
